@@ -1,0 +1,175 @@
+units:
+  $default_height: 17
+  $default_width: 18
+  kx: cx
+  ky: cy
+  px: kx + 5
+  py: ky + 5
+points:
+  zones:
+    matrix:
+      key:
+        padding: 1ky
+        spread: 1kx
+      anchor:
+        rotate: 15
+        shift: [100, -100]
+      columns:
+        pinky:
+          key.column_net: P111
+        ring:
+          key.stagger: 5
+          key.splay: -4
+          key.origin: [-12, -19]
+          key.column_net: P113
+        middle:
+          key.stagger: 2.5
+          key.column_net: P115
+        index:
+          key.stagger: -2.5
+          key.column_net: P002
+        inner:
+          key.stagger: -2.5
+          key.column_net: P029
+        extras:
+          rows.bottom.skip: true
+          key.column_net: P031
+      rows:
+        bottom:
+          key.column_net: P010
+        home:
+          key.column_net: P009
+        top:
+          key.column_net: P020
+        num:
+          key.column_net: P017
+    thumbfanbottom:
+      anchor:
+        ref: matrix_inner_bottom
+        shift: [0, -19]
+      columns:
+        near:
+          key.splay: -5
+          key.column_net: P011
+        home:
+          key.spread: 20
+          key.splay: -40
+          key.origin: [-10.5, -7]
+          key.column_net: P104
+        far:
+          key.spread: 22
+          key.splay: -40
+          key.origin: [-11, -4]
+          key.column_net: P106
+      rows:
+        thumb:
+          key.column_net: P010
+    thumbfanupper:
+      anchor:
+        ref: matrix_extras_home
+        shift: [4, -21]
+      columns:
+        near:
+          key.splay: -18
+          key.column_net: P011
+        home:
+          key.spread: 22
+          key.splay: -35
+          key.origin: [-12, -6]
+          key.column_net: P104
+        far:
+          key.spread: 22
+          key.splay: -30
+          key.origin: [-12, -6]
+          key.column_net: P106
+      rows:
+        thumb:
+          key.column_net: P009
+  rotate: -20
+outlines:
+  keys:
+    - what: rectangle
+      where: true
+      size: [kx - 0.5, ky - 0.5]
+  raw:
+    - what: rectangle
+      where: true
+      size: [px, py]
+  board:
+    - what: polygon
+      operation: stack
+      fillet: 2
+      points:
+        - ref: matrix_pinky_num
+          shift: [-0.5px, 0.5py]
+        - ref: matrix_ring_num
+          shift: [-0.5px, 0.5py]
+        - ref: matrix_middle_num
+          shift: [-0.5px, 0.5py]
+        - ref: matrix_middle_num
+          shift: [0.5px, 0.5py]
+        - ref: matrix_extras_num
+          shift: [1.5px, 0.5py]
+        - ref: matrix_extras_home
+          shift: [1.5px, -0.5py]
+        - ref: thumbfanupper_home_thumb
+          shift: [0.5px, 0.5py]
+        - ref: thumbfanupper_far_thumb
+          shift: [-0.5px, 0.5py]
+        - ref: thumbfanupper_far_thumb
+          shift: [0.5px, 0.5py]
+        - ref: thumbfanbottom_far_thumb
+          shift: [0.5px, 0.5py]
+        - ref: thumbfanbottom_far_thumb
+          shift: [0.5px, -0.5py]
+        - ref: thumbfanbottom_far_thumb
+          shift: [-0.5kx, -0.5py]
+        - ref: thumbfanbottom_near_thumb
+          shift: [0.5kx, -0.5py]
+        - ref: thumbfanbottom_near_thumb
+          shift: [-0.5px, -0.5py]
+        - ref: matrix_inner_bottom
+          shift: [-0.5px, -0.5py]
+        - ref: matrix_index_bottom
+          shift: [-0.5px, -0.5py]
+        - ref: matrix_ring_bottom
+          shift: [0.5px, -0.5py]
+        - ref: matrix_pinky_bottom
+          shift: [0.5px, -0.5py]
+        - ref: matrix_pinky_bottom
+          shift: [-0.5px, -0.5py]
+  combo:
+    - name: board
+    - operation: subtract
+      name: keys
+pcbs:
+  left:
+    outlines:
+      main:
+        outline: board
+    footprints:
+      keyswitches:
+        what: choc
+        where: true
+        params:
+          keycaps: true
+          reverse: false
+          hotswap: true
+          from: "{{column_net}}"
+          to: "{{colrow}}"
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
+      nice_nano:
+        what: nice_nano
+        params:
+          orientation: "down"
+        where:
+          ref: matrix_extras_num
+          shift: [kx + 3, 0.75 * -ky]
+          rotate: -90
