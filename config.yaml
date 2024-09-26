@@ -8,10 +8,14 @@ units:
   # M2 Screw Inserts
   screwThreadSize: 2
   standoffSize: 4.0
-  # Misc Measurements
+  # Choc Switch Size
+  chocW: 14
+  chocH: 14
+  # Nice Nano 2 Measurements
   nanoW: 18.5
   nanoH: 33.5
   nanoT: 3.2
+  # Case Measurements
   casePadding: 1.5
   caseThickness: 9
 points:
@@ -106,7 +110,7 @@ outlines:
   keys:
     - what: rectangle
       where: true
-      size: [14, 14]
+      size: [chocW, chocH]
       fillet: 0
   board_left:
     - what: polygon
@@ -154,41 +158,41 @@ outlines:
       operation: stack
       fillet: 2
       points:
-        - ref: matrix_pinky_num
+        - ref: mirror_matrix_pinky_num
           shift: [-0.5px, 0.5py]
-        - ref: matrix_ring_num
+        - ref: mirror_matrix_ring_num
           shift: [-0.5px, 0.5py]
-        - ref: matrix_middle_num
+        - ref: mirror_matrix_middle_num
           shift: [-0.5px, 0.5py]
-        - ref: matrix_middle_num
+        - ref: mirror_matrix_middle_num
           shift: [0.5px, 0.5py]
-        - ref: matrix_extras_num
+        - ref: mirror_matrix_extras_num
           shift: [1.5px, 0.5py]
-        - ref: matrix_extras_home
+        - ref: mirror_matrix_extras_home
           shift: [1.5px, -0.5py]
-        - ref: thumbfanupper_far_thumbupper
+        - ref: mirror_thumbfanupper_far_thumbupper
           shift: [-0.5px, 0.5py]
-        - ref: thumbfanupper_far_thumbupper
+        - ref: mirror_thumbfanupper_far_thumbupper
           shift: [0.5px, 0.5py]
-        - ref: thumbfanbottom_far_thumbbottom
+        - ref: mirror_thumbfanbottom_far_thumbbottom
           shift: [0.5px, 0.5py]
-        - ref: thumbfanbottom_far_thumbbottom
+        - ref: mirror_thumbfanbottom_far_thumbbottom
           shift: [0.5px, -0.5py]
-        - ref: thumbfanbottom_far_thumbbottom
+        - ref: mirror_thumbfanbottom_far_thumbbottom
           shift: [-0.5kx, -0.5py]
-        - ref: thumbfanbottom_near_thumbbottom
+        - ref: mirror_thumbfanbottom_near_thumbbottom
           shift: [0.5kx, -0.5py]
-        - ref: thumbfanbottom_near_thumbbottom
+        - ref: mirror_thumbfanbottom_near_thumbbottom
           shift: [-0.5px, -0.5py]
-        - ref: matrix_inner_bottom
+        - ref: mirror_matrix_inner_bottom
           shift: [-0.5px, -0.5py]
-        - ref: matrix_index_bottom
+        - ref: mirror_matrix_index_bottom
           shift: [-0.5px, -0.5py]
-        - ref: matrix_ring_bottom
+        - ref: mirror_matrix_ring_bottom
           shift: [0.5px, -0.5py]
-        - ref: matrix_pinky_bottom
+        - ref: mirror_matrix_pinky_bottom
           shift: [0.5px, -0.5py]
-        - ref: matrix_pinky_bottom
+        - ref: mirror_matrix_pinky_bottom
           shift: [-0.5px, -0.5py]
 
   # Create a slightly larger version of board_left/board_right for the case so that it can have room to go around the PCB
@@ -233,31 +237,40 @@ outlines:
           shift: [0.5px, -0.5py - casePadding]
         - ref: matrix_pinky_bottom
           shift: [-0.5px - casePadding, -0.5py - casePadding]
-  xl_board_left_key_cutouts:
+  _xl_board_left_key_cutouts:
     - name: xl_board_left
     - operation: subtract
       name: keys
-  left_mounting:
+  _left_mounting:
     - what: circle
       radius: screwThreadSize
       where:
-        ref: [matrix_pinky_num]
-        shift: [0.5px, -0.1ky]
+        ref: [matrix_ring_num]
+        shift: [-0.5px, -0.5ky]
     - what: circle
       radius: screwThreadSize
       where:
         ref: [matrix_ring_bottom]
-        shift: [-0.53kx, 0.5ky]
+        shift: [-0.5kx, -0.5py]
     - what: circle
       radius: screwThreadSize
       where:
         ref: [thumbfanbottom_far_thumbbottom]
-        shift: [-0.54px, 0.42ky]
+        shift: [-0.45px, -0.25ky]
     - what: circle
       radius: screwThreadSize
       where:
         ref: [matrix_extras_home]
         shift: [1.3kx, 0.4ky]
+    - what: circle
+      radius: screwThreadSize
+      where:
+        ref: [matrix_index_top]
+        shift: [0.48kx, 0.5ky]
+  xl_board_left_keys_mounting_cutouts:
+    - name: _xl_board_left_key_cutouts
+    - operation: subtract
+      name: _left_mounting
 pcbs:
   left:
     outlines:
@@ -327,18 +340,18 @@ pcbs:
       hole_top_left:
         what: mountinghole
         where:
-          ref: [matrix_pinky_num]
-          shift: [0.5px, -0.1ky]
+          ref: [matrix_ring_num]
+          shift: [-0.5px, -0.5ky]
       hole_bottom_left:
         what: mountinghole
         where:
           ref: [matrix_ring_bottom]
-          shift: [-0.53kx, 0.5ky]
+          shift: [-0.5kx, -0.5py]
       hole_bottom_right:
         what: mountinghole
         where:
           ref: [thumbfanbottom_far_thumbbottom]
-          shift: [-0.54px, 0.42ky]
+          shift: [-0.45px, -0.25ky]
       hole_middle_right:
         what: mountinghole
         where:
@@ -347,8 +360,8 @@ pcbs:
       hole_center:
         what: mountinghole
         where:
-          ref: [matrix_middle_top]
-          shift: [0.5kx, -0.4ky]
+          ref: [matrix_index_top]
+          shift: [0.48kx, 0.5ky]
   right:
     outlines:
       main:
@@ -417,18 +430,18 @@ pcbs:
       hole_top_left:
         what: mountinghole
         where:
-          ref: [mirror_matrix_pinky_num]
-          shift: [0.5px, -0.1ky]
+          ref: [mirror_matrix_ring_num]
+          shift: [-0.5px, -0.5ky]
       hole_bottom_left:
         what: mountinghole
         where:
           ref: [mirror_matrix_ring_bottom]
-          shift: [-0.53kx, 0.5ky]
+          shift: [-0.5kx, -0.5py]
       hole_bottom_right:
         what: mountinghole
         where:
           ref: [mirror_thumbfanbottom_far_thumbbottom]
-          shift: [-0.54px, 0.42ky]
+          shift: [-0.45px, -0.25ky]
       hole_middle_right:
         what: mountinghole
         where:
@@ -437,19 +450,9 @@ pcbs:
       hole_center:
         what: mountinghole
         where:
-          ref: [mirror_matrix_middle_top]
-          shift: [0.5kx, -0.4ky]
+          ref: [mirror_matrix_index_top]
+          shift: [0.48kx, 0.5ky]
 cases:
-  _xl_board_key_cutouts:
-    - name: xl_board_left_key_cutouts
+  top_plate:
+    - name: xl_board_left_keys_mounting_cutouts
       extrude: 1.2
-  _holes:
-    - name: left_mounting
-      extrude: 4
-  case:
-    - what: case
-      name: _xl_board_key_cutouts
-      operation: add
-    - what: case
-      name: _holes
-      operation: subtract
