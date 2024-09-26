@@ -5,12 +5,15 @@ units:
   # Padding Variables
   px: kx + 5
   py: ky + 5
-  # "Double" Padding Variables
-  dpx: kx + 9
-  dpy: ky + 9
   # M2 Screw Inserts
-  screwSize: 1.5
-  standoffSize: 2.5
+  screwThreadSize: 2
+  standoffSize: 4.0
+  # Misc Measurements
+  nanoW: 18.5
+  nanoH: 33.5
+  nanoT: 3.2
+  casePadding: 1.5
+  caseThickness: 9
 points:
   key:
     padding: 1ky
@@ -52,20 +55,20 @@ points:
     thumbfanbottom:
       anchor:
         ref: matrix_inner_bottom
-        shift: [0, -19]
+        shift: [3, -19]
       columns:
         near:
-          key.splay: -5
+          key.splay: -10
           key.column_net: P106
         home:
           key.spread: 20
-          key.splay: -40
-          key.origin: [-10.5, -7]
+          key.splay: -20
+          key.origin: [-10.5, -5]
           key.column_net: P104
         far:
           key.spread: 22
-          key.splay: -40
-          key.origin: [-11, -4]
+          key.splay: -20
+          key.origin: [-11, 0]
           key.column_net: P011
       rows:
         thumbbottom:
@@ -73,20 +76,20 @@ points:
     thumbfanupper:
       anchor:
         ref: matrix_extras_home
-        shift: [4, -21]
+        shift: [3, -20]
       columns:
         near:
-          key.splay: -18
+          key.splay: -15
           key.column_net: P106
         home:
           key.spread: 22
-          key.splay: -35
-          key.origin: [-12, -6]
+          key.splay: -20
+          key.origin: [-11, 0]
           key.column_net: P104
         far:
           key.spread: 22
-          key.splay: -30
-          key.origin: [-12, -6]
+          key.splay: -20
+          key.origin: [-11, 0]
           key.column_net: P011
       rows:
         thumbupper:
@@ -103,7 +106,7 @@ outlines:
   keys:
     - what: rectangle
       where: true
-      size: [kx - 0.5, ky - 0.5]
+      size: [14, 14]
       fillet: 0
   board_left:
     - what: polygon
@@ -122,8 +125,6 @@ outlines:
           shift: [1.5px, 0.5py]
         - ref: matrix_extras_home
           shift: [1.5px, -0.5py]
-        - ref: thumbfanupper_home_thumbupper
-          shift: [0.5px, 0.5py]
         - ref: thumbfanupper_far_thumbupper
           shift: [-0.5px, 0.5py]
         - ref: thumbfanupper_far_thumbupper
@@ -153,43 +154,41 @@ outlines:
       operation: stack
       fillet: 2
       points:
-        - ref: mirror_matrix_pinky_num
+        - ref: matrix_pinky_num
           shift: [-0.5px, 0.5py]
-        - ref: mirror_matrix_ring_num
+        - ref: matrix_ring_num
           shift: [-0.5px, 0.5py]
-        - ref: mirror_matrix_middle_num
+        - ref: matrix_middle_num
           shift: [-0.5px, 0.5py]
-        - ref: mirror_matrix_middle_num
+        - ref: matrix_middle_num
           shift: [0.5px, 0.5py]
-        - ref: mirror_matrix_extras_num
+        - ref: matrix_extras_num
           shift: [1.5px, 0.5py]
-        - ref: mirror_matrix_extras_home
+        - ref: matrix_extras_home
           shift: [1.5px, -0.5py]
-        - ref: mirror_thumbfanupper_home_thumbupper
-          shift: [0.5px, 0.5py]
-        - ref: mirror_thumbfanupper_far_thumbupper
+        - ref: thumbfanupper_far_thumbupper
           shift: [-0.5px, 0.5py]
-        - ref: mirror_thumbfanupper_far_thumbupper
+        - ref: thumbfanupper_far_thumbupper
           shift: [0.5px, 0.5py]
-        - ref: mirror_thumbfanbottom_far_thumbbottom
+        - ref: thumbfanbottom_far_thumbbottom
           shift: [0.5px, 0.5py]
-        - ref: mirror_thumbfanbottom_far_thumbbottom
+        - ref: thumbfanbottom_far_thumbbottom
           shift: [0.5px, -0.5py]
-        - ref: mirror_thumbfanbottom_far_thumbbottom
+        - ref: thumbfanbottom_far_thumbbottom
           shift: [-0.5kx, -0.5py]
-        - ref: mirror_thumbfanbottom_near_thumbbottom
+        - ref: thumbfanbottom_near_thumbbottom
           shift: [0.5kx, -0.5py]
-        - ref: mirror_thumbfanbottom_near_thumbbottom
+        - ref: thumbfanbottom_near_thumbbottom
           shift: [-0.5px, -0.5py]
-        - ref: mirror_matrix_inner_bottom
+        - ref: matrix_inner_bottom
           shift: [-0.5px, -0.5py]
-        - ref: mirror_matrix_index_bottom
+        - ref: matrix_index_bottom
           shift: [-0.5px, -0.5py]
-        - ref: mirror_matrix_ring_bottom
+        - ref: matrix_ring_bottom
           shift: [0.5px, -0.5py]
-        - ref: mirror_matrix_pinky_bottom
+        - ref: matrix_pinky_bottom
           shift: [0.5px, -0.5py]
-        - ref: mirror_matrix_pinky_bottom
+        - ref: matrix_pinky_bottom
           shift: [-0.5px, -0.5py]
 
   # Create a slightly larger version of board_left/board_right for the case so that it can have room to go around the PCB
@@ -199,142 +198,66 @@ outlines:
       fillet: 2
       points:
         - ref: matrix_pinky_num
-          shift: [-0.5dpx, 0.5dpy]
+          shift: [-0.5px - casePadding, 0.5py + casePadding]
         - ref: matrix_ring_num
-          shift: [-0.5dpx, 0.5dpy]
+          shift: [-0.5px - casePadding, 0.5py + casePadding]
         - ref: matrix_middle_num
-          shift: [-0.5dpx, 0.5dpy]
+          shift: [-0.5px, 0.5py + casePadding]
         - ref: matrix_middle_num
-          shift: [0.5dpx, 0.5dpy]
+          shift: [0.5px, 0.5py + casePadding]
         - ref: matrix_extras_num
-          shift: [1.4dpx, 0.5dpy]
+          shift: [1.5px + casePadding, 0.5py + casePadding]
         - ref: matrix_extras_home
-          shift: [1.4dpx, -0.5dpy]
-        - ref: thumbfanupper_home_thumbupper
-          shift: [0.5dpx, 0.5dpy]
+          shift: [1.5px + casePadding, -0.5py]
         - ref: thumbfanupper_far_thumbupper
-          shift: [-0.5dpx, 0.5dpy]
+          shift: [-0.5px, 0.5py + casePadding]
         - ref: thumbfanupper_far_thumbupper
-          shift: [0.5dpx, 0.5dpy]
+          shift: [0.5px + casePadding, 0.5py + casePadding]
         - ref: thumbfanbottom_far_thumbbottom
-          shift: [0.5dpx, 0.5dpy]
+          shift: [0.5px + casePadding, 0.5py + casePadding]
         - ref: thumbfanbottom_far_thumbbottom
-          shift: [0.5dpx, -0.5dpy]
+          shift: [0.5px + casePadding, -0.5py - casePadding]
         - ref: thumbfanbottom_far_thumbbottom
-          shift: [-0.5kx, -0.5dpy]
+          shift: [-0.5kx, -0.5py - casePadding]
         - ref: thumbfanbottom_near_thumbbottom
-          shift: [0.5kx, -0.5dpy]
+          shift: [0.5kx, -0.5py - casePadding]
         - ref: thumbfanbottom_near_thumbbottom
-          shift: [-0.5dpx, -0.5dpy]
+          shift: [-0.5px - casePadding, -0.5py - casePadding]
         - ref: matrix_inner_bottom
-          shift: [-0.5dpx, -0.5dpy]
+          shift: [-0.5px - casePadding, -0.5py - casePadding]
         - ref: matrix_index_bottom
-          shift: [-0.5dpx, -0.5dpy]
+          shift: [-0.5px, -0.5py - casePadding]
         - ref: matrix_ring_bottom
-          shift: [0.5dpx, -0.5dpy]
+          shift: [0.5px, -0.5py - casePadding]
         - ref: matrix_pinky_bottom
-          shift: [0.5dpx, -0.5dpy]
+          shift: [0.5px, -0.5py - casePadding]
         - ref: matrix_pinky_bottom
-          shift: [-0.5dpx, -0.5dpy]
-  xl_board_right:
-    - what: polygon
-      operation: stack
-      fillet: 2
-      points:
-        - ref: mirror_matrix_pinky_num
-          shift: [-0.5dpx, 0.5dpy]
-        - ref: mirror_matrix_ring_num
-          shift: [-0.5dpx, 0.5dpy]
-        - ref: mirror_matrix_middle_num
-          shift: [-0.5dpx, 0.5dpy]
-        - ref: mirror_matrix_middle_num
-          shift: [0.5dpx, 0.5dpy]
-        - ref: mirror_matrix_extras_num
-          shift: [1.4dpx, 0.5dpy]
-        - ref: mirror_matrix_extras_home
-          shift: [1.4dpx, -0.5dpy]
-        - ref: mirror_thumbfanupper_home_thumbupper
-          shift: [0.5dpx, 0.5dpy]
-        - ref: mirror_thumbfanupper_far_thumbupper
-          shift: [-0.5dpx, 0.5dpy]
-        - ref: mirror_thumbfanupper_far_thumbupper
-          shift: [0.5dpx, 0.5dpy]
-        - ref: mirror_thumbfanbottom_far_thumbbottom
-          shift: [0.5dpx, 0.5dpy]
-        - ref: mirror_thumbfanbottom_far_thumbbottom
-          shift: [0.5dpx, -0.5dpy]
-        - ref: mirror_thumbfanbottom_far_thumbbottom
-          shift: [-0.5kx, -0.5dpy]
-        - ref: mirror_thumbfanbottom_near_thumbbottom
-          shift: [0.5kx, -0.5dpy]
-        - ref: mirror_thumbfanbottom_near_thumbbottom
-          shift: [-0.5dpx, -0.5dpy]
-        - ref: mirror_matrix_inner_bottom
-          shift: [-0.5dpx, -0.5dpy]
-        - ref: mirror_matrix_index_bottom
-          shift: [-0.5dpx, -0.5dpy]
-        - ref: mirror_matrix_ring_bottom
-          shift: [0.5dpx, -0.5dpy]
-        - ref: mirror_matrix_pinky_bottom
-          shift: [0.5dpx, -0.5dpy]
-        - ref: mirror_matrix_pinky_bottom
-          shift: [-0.5dpx, -0.5dpy]
+          shift: [-0.5px - casePadding, -0.5py - casePadding]
   xl_board_left_key_cutouts:
     - name: xl_board_left
     - operation: subtract
       name: keys
-  xl_board_right_key_cutouts:
-    - name: xl_board_right
-    - operation: subtract
-      name: keys
-
-  # TODO: Do I need these?
-  _left_combo:
-    - name: board_left
-    - operation: subtract
-      name: keys
   left_mounting:
     - what: circle
-      radius: screwSize
+      radius: screwThreadSize
       where:
         ref: [matrix_pinky_num]
-        shift: [0.5px, 0.55ky]
+        shift: [0.5px, -0.1ky]
     - what: circle
-      radius: screwSize
+      radius: screwThreadSize
       where:
         ref: [matrix_ring_bottom]
-        shift: [-0.35kx, -0.52py]
+        shift: [-0.53kx, 0.5ky]
     - what: circle
-      radius: screwSize
+      radius: screwThreadSize
       where:
         ref: [thumbfanbottom_far_thumbbottom]
-        shift: [0.3kx, 0.55py]
+        shift: [-0.54px, 0.42ky]
     - what: circle
-      radius: screwSize
+      radius: screwThreadSize
       where:
         ref: [matrix_extras_home]
-        shift: [1px, 0]
-  left_standoff:
-    - what: circle
-      radius: standoffSize
-      where:
-        ref: [matrix_pinky_num]
-        shift: [0.5px, 0.55ky]
-    - what: circle
-      radius: standoffSize
-      where:
-        ref: [matrix_ring_bottom]
-        shift: [-0.35kx, -0.52py]
-    - what: circle
-      radius: standoffSize
-      where:
-        ref: [thumbfanbottom_far_thumbbottom]
-        shift: [0.3kx, 0.55py]
-    - what: circle
-      radius: standoffSize
-      where:
-        ref: [matrix_extras_home]
-        shift: [1px, 0]
+        shift: [1.3kx, 0.4ky]
 pcbs:
   left:
     outlines:
@@ -362,7 +285,7 @@ pcbs:
       nice_nano:
         what: nice_nano
         params:
-          orientation: down
+          orientation: up
         where:
           ref: matrix_extras_num
           shift: [kx + 3, -0.48 * ky]
@@ -394,7 +317,7 @@ pcbs:
         what: slider
         where:
           ref: matrix_extras_home
-          shift: [1.8 * kx, -0.25 * ky]
+          shift: [1.8 * kx, -0.28 * ky]
           rotate: -90
         params:
           side: B
@@ -410,12 +333,12 @@ pcbs:
         what: mountinghole
         where:
           ref: [matrix_ring_bottom]
-          shift: [-0.52kx, 0.5ky]
+          shift: [-0.53kx, 0.5ky]
       hole_bottom_right:
         what: mountinghole
         where:
           ref: [thumbfanbottom_far_thumbbottom]
-          shift: [-0.75kx, 0.4ky]
+          shift: [-0.54px, 0.42ky]
       hole_middle_right:
         what: mountinghole
         where:
@@ -452,7 +375,7 @@ pcbs:
       nice_nano:
         what: nice_nano
         params:
-          orientation: down
+          orientation: up
         where:
           ref: mirror_matrix_extras_num
           shift: [kx + 3, -0.48 * ky]
@@ -484,7 +407,7 @@ pcbs:
         what: slider
         where:
           ref: mirror_matrix_extras_home
-          shift: [1.8 * kx, -0.25 * ky]
+          shift: [1.8 * kx, -0.28 * ky]
           rotate: -90
         params:
           side: B
@@ -500,12 +423,12 @@ pcbs:
         what: mountinghole
         where:
           ref: [mirror_matrix_ring_bottom]
-          shift: [-0.52kx, 0.5ky]
+          shift: [-0.53kx, 0.5ky]
       hole_bottom_right:
         what: mountinghole
         where:
           ref: [mirror_thumbfanbottom_far_thumbbottom]
-          shift: [-0.75kx, 0.4ky]
+          shift: [-0.54px, 0.42ky]
       hole_middle_right:
         what: mountinghole
         where:
@@ -517,41 +440,16 @@ pcbs:
           ref: [mirror_matrix_middle_top]
           shift: [0.5kx, -0.4ky]
 cases:
-  bottom:
-    - name: board_left
-      extrude: 1
-  xlBottom:
-    - name: xl_board_left
-      extrude: 1
-  _outerWall:
-    - name: xl_board_left
-      extrude: 5.6
-  _innerWall:
-    - name: board_left
-      extrude: 5.6
-  wall:
-    - what: case
-      name: _outerWall
-      operation: add
-    - what: case
-      name: _innerWall
-      operation: subtract
+  _xl_board_key_cutouts:
+    - name: xl_board_left_key_cutouts
+      extrude: 1.2
   _holes:
     - name: left_mounting
       extrude: 4
-  _standoffs:
-    - name: left_standoff
-      extrude: 4
   case:
     - what: case
-      name: _standoffs
+      name: _xl_board_key_cutouts
       operation: add
     - what: case
       name: _holes
       operation: subtract
-    - what: case
-      name: xlBottom
-      operation: add
-    - what: case
-      name: wall
-      operation: add
