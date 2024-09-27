@@ -11,13 +11,14 @@ units:
   # Choc Switch Size
   chocW: 14
   chocH: 14
-  # Nice Nano 2 Measurements
+  # nice!nano v2 Measurements
   nanoW: 18.5
   nanoH: 33.5
   nanoT: 3.2
-  # Case Measurements
+  # Case Measurement Variables
   casePadding: 1.5
   caseThickness: 9
+
 points:
   key:
     padding: 1ky
@@ -102,11 +103,6 @@ points:
     ref: thumbfanupper_far_thumbupper
     distance: 50
 outlines:
-  raw:
-    - what: rectangle
-      where: true
-      size: [px, py]
-      fillet: 0
   keys:
     - what: rectangle
       where: true
@@ -195,8 +191,8 @@ outlines:
         - ref: mirror_matrix_pinky_bottom
           shift: [-0.5px, -0.5py]
 
-  # Create a slightly larger version of board_left/board_right for the case so that it can have room to go around the PCB
-  xl_board_left:
+  # Create a slightly larger version of board_left for the case so that it can have extra room to go around the PCB
+  _xl_board_left:
     - what: polygon
       operation: stack
       fillet: 2
@@ -237,10 +233,8 @@ outlines:
           shift: [0.5px, -0.5py - casePadding]
         - ref: matrix_pinky_bottom
           shift: [-0.5px - casePadding, -0.5py - casePadding]
-  _xl_board_left_key_cutouts:
-    - name: xl_board_left
-    - operation: subtract
-      name: keys
+
+  # Case mounting holes
   _left_mounting:
     - what: circle
       radius: screwThreadSize
@@ -267,10 +261,15 @@ outlines:
       where:
         ref: [matrix_index_top]
         shift: [0.48kx, 0.5ky]
+
+  # Cutout mounting holes and keys from xl_board
   xl_board_left_keys_mounting_cutouts:
-    - name: _xl_board_left_key_cutouts
+    - name: _xl_board_left
+    - operation: subtract
+      name: keys
     - operation: subtract
       name: _left_mounting
+
 pcbs:
   left:
     outlines:
@@ -452,7 +451,8 @@ pcbs:
         where:
           ref: [mirror_matrix_index_top]
           shift: [0.48kx, 0.5ky]
+
 cases:
-  top_plate:
+  topPlate:
     - name: xl_board_left_keys_mounting_cutouts
       extrude: 1.2
