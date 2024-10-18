@@ -6,7 +6,7 @@ units:
   px: kx + 5
   py: ky + 5
   # M2 Screw Inserts
-  screwThreadSize: 2
+  screwThreadSize: 1
   standoffSize: 4.0
   # Choc Switch Size
   chocW: 14
